@@ -1,9 +1,19 @@
 Option Explicit
 
-Public Function Convert_Col_Number_To_Col_Letter(lngCol As Long) As String
-    Dim vArr
-    vArr = Split(Cells(1, lngCol).Address(True, False), "$")
-    Convert_Col_Number_To_Col_Letter = vArr(0)
+Public Function Convert_Col_Letter_To_Col_Number(col_letter As String)
+
+'purpose: convert a column letter to a column number
+
+Convert_Col_Letter_To_Col_Number = Range(col_letter & 1).Column
+
+End Function
+
+Public Function Convert_Col_Number_To_Col_Letter(col_number As Long)
+
+'purpose: convert a column number to a column letter
+
+Convert_Col_Number_To_Col_Letter = Split(Cells(1, col_number).Address, "$")(1)
+
 End Function
 
 Public Function Find_Last_Row(Worksheet_Name As String, Optional Column_Number As Long)
