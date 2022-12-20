@@ -52,3 +52,17 @@ Find_Last_Row = LastRow
 
 End Function
 
+Public Function Check_If_Worksheet_Exists(shtName As String, Optional wb As Workbook) As Boolean
+
+'purpose: check and see if a worksheet exists with a specified name
+Dim sht As Worksheet
+
+If wb Is Nothing Then Set wb = ThisWorkbook
+
+On Error Resume Next
+    Set sht = wb.Sheets(shtName)
+On Error GoTo 0
+
+worksheetexists = Not sht Is Nothing
+
+End Function
