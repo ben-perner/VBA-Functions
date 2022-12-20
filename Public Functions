@@ -1,0 +1,35 @@
+Public Function Find_Last_Row(Worksheet_Name As String, Optional Column_Number As Long)
+
+'code adapted from https://stackoverflow.com/questions/11169445/error-in-finding-last-used-cell-in-excel-with-vba
+  
+Dim LastRow As Long
+Dim TotalRowCount As Long
+
+'Case 1: Find the Last Row for the given Column
+  If Column_Number > 0 And IsNumeric(Column_Number) Then
+  
+    With Sheets(Worksheet_Name)
+      TotalRowCount = .Rows.Count
+      LastRow = .Cells(TotalRowCount, Column_Number).End(xlUp).Row
+    End With
+    
+    Else:
+    
+      'Case 2: Find the Global Last Row in a Worksheet
+        With Sheets(Worksheet_Name)
+          If Application.WorksheetFunction.CountA(.Cells) <> 0 Then
+          
+            LastRow = .Cells.Find(What:="*", After:=.Range("A1"), LookAt:=xlPart, LookIn:=xlFormulas, SearchOrder:=xlByRows, SearchDirection:=xlPrevious, MatchCase:=False).Row
+            
+            Else:
+            
+              LastRow = 1
+              
+          End If
+        End With
+
+  End If
+  
+Find_Last_Row = LastRow
+
+End Function
