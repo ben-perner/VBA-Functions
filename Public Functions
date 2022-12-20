@@ -66,3 +66,9 @@ On Error GoTo 0
 worksheetexists = Not sht Is Nothing
 
 End Function
+
+Public Function IsIn(strKeyword As String, strText As String)
+
+If UCase(strText) Like "*" & UCase(strKeyword) & "*" Then IsIn = True Else IsIn = False
+    
+End Function
