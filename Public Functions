@@ -1,5 +1,11 @@
 Option Explicit
 
+Public Function Convert_Col_Number_To_Col_Letter(lngCol As Long) As String
+    Dim vArr
+    vArr = Split(Cells(1, lngCol).Address(True, False), "$")
+    Convert_Col_Number_To_Col_Letter = vArr(0)
+End Function
+
 Public Function Find_Last_Row(Worksheet_Name As String, Optional Column_Number As Long)
 
 'code adapted from https://stackoverflow.com/questions/11169445/error-in-finding-last-used-cell-in-excel-with-vba
