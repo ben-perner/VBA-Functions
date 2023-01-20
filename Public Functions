@@ -72,7 +72,7 @@ Public Function IsIn(strKeyword As String, strText As String)
 If UCase(strText) Like "*" & UCase(strKeyword) & "*" Then IsIn = True Else IsIn = False
     
 End Function
-Public Function Make_List(ws As Worksheet, list_range As Range, delimiter As String, Optional separator As String)
+Public Function Make_List(ws As Worksheet, list_range As Range, delimiter As String, Optional separator As String, Optional wrapper As String) As String
 
 'PURPOSE: create a list from a range with a delimiter between each item. can also have a separator around each item. ex ', "
 
@@ -81,10 +81,15 @@ Dim x As Long
 Dim list_range_FR As Long
 Dim list_range_LR As Long
 Dim list_range_Col As Long
+Dim begin_wrapper As String
+Dim end_wrapper As String
 
-list_range_FR = list_range.Row
-list_range_LR = list_range.Rows.Count + list_range.Row - 1
+'=========================================
+list_range_FR = list_range.row
+list_range_LR = list_range.Rows.Count + list_range.row - 1
 list_range_Col = list_range.Column
+begin_wrapper = Left(wrapper, 1)
+end_wrapper = Right(wrapper, 1)
 
 For x = list_range_FR To list_range_LR
 
@@ -93,5 +98,7 @@ For x = list_range_FR To list_range_LR
     If x <> list_range_FR Then Make_List = Make_List & delimiter & separator & ws.Cells(x, list_range_Col).Value & separator
 
 Next x
+
+Make_List = begin_wrapper & Make_List & end_wrapper
 
 End Function
