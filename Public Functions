@@ -102,3 +102,25 @@ Next x
 Make_List = begin_wrapper & Make_List & end_wrapper
 
 End Function
+Public Function FileExist(FilePath As String) As Boolean
+'PURPOSE: test to see if a file exists or not
+
+Dim TestStr As String
+
+'test file path
+    On Error Resume Next
+        TestStr = Dir(PathName:=FilePath)
+    On Error GoTo 0
+    
+'determine if file exists
+    If TestStr = "" Then
+        
+        FileExist = False
+    
+        Else:
+        
+            FileExist = True
+            
+    End If
+
+End Function
