@@ -1,2 +1,2 @@
 # VBA-Functions
-Commonly used VBA code to carry around
+Commonly used VBA functions to carry around
