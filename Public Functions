@@ -167,3 +167,27 @@ errhandler:
 MsgBox "Error extracting strings. Check your input" & vbNewLine & vbNewLine & "Aborting", , "Strings not found"
 End
 End Function
+Public Function List_Uniques(ByRef list As Variant) As Variant
+
+'PURPOSE: Returns unique list of items from an array
+
+Dim tmpList As Scripting.Dictionary
+Dim i As Integer
+
+Set tmpList = New Dictionary
+
+    For i = 0 to UBound(list)
+
+        If Not tmpList.Exists(list(i)) Then
+
+            tmpList.Add list(i), list(i)
+
+        End If 
+
+    Next i
+
+List_Uniques = tmpList.Keys
+
+Set tmpList = Nothing
+
+End Function
