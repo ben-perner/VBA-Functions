@@ -167,3 +167,18 @@ errhandler:
 MsgBox "Error extracting strings. Check your input" & vbNewLine & vbNewLine & "Aborting", , "Strings not found"
 End
 End Function
+Public Function CONCAT_RANGE(inRange As Range, delimiter As String) As String
+
+    Dim c As Range
+    Dim returnValue As String
+
+    For Each c In inRange
+        
+        If c.Value = "" Then Exit For
+    
+        returnValue = returnValue & c.Value & delimiter & " "
+    Next
+
+    CONCAT_RANGE = Left(returnValue, Len(returnValue) - 2)
+
+End Function
