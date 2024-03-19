@@ -253,3 +253,27 @@ ErrHandler:
     Resume ExitHandler
 
 End Sub
+Sub Import_ThisWorkbook_Code()
+    Dim MyData As String
+    Dim strData() As String
+    Dim ThisWorkbookCode As String
+
+    Open "I:\MER3\SPACE\02_Groups\01_Analytics Team\(10) CLR\Ben\RPA\CLrAW ThisWorkbook Text File\CLrAWThisWorkbook.txt" For Binary As #1
+    MyData = Space$(LOF(1))
+    Get #1, , MyData
+    Close #1
+    strData() = Split(MyData, vbCrLf)
+    
+    ThisWorkbookCode = MyData
+    
+    Dim wb As Workbook
+    
+    Set wb = ThisWorkbook
+    
+    wb.VBProject.VBComponents("ThisWorkbook").CodeModule.DeleteLines 1, wb.VBProject.VBComponents("ThisWorkbook").CodeModule.CountOfLines
+    
+    wb.VBProject.VBComponents.item("ThisWorkbook").CodeModule.AddFromString (ThisWorkbookCode)
+    
+    
+    
+End Sub
