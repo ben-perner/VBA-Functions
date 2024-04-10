@@ -277,3 +277,13 @@ Sub Import_ThisWorkbook_Code()
     
     
 End Sub
+Function SplitMeUp(strIn As String)
+    Const MAX_LEN As Long = 200
+    Dim rv(), n, i
+    n = Application.Ceiling(Len(strIn) / MAX_LEN, 1)
+    ReDim rv(0 To n - 1)
+    For i = 1 To n
+        rv(i - 1) = Mid(strIn, 1 + ((i - 1) * MAX_LEN), MAX_LEN)
+    Next i
+    SplitMeUp = rv
+End Function
