@@ -287,3 +287,40 @@ Function SplitMeUp(strIn As String)
     Next i
     SplitMeUp = rv
 End Function
+Public Function Get_Max_Batch_ID(max_column As String, database As String, table_name As String)
+
+Dim sql_Conn As Object
+Dim sql_RS As Object
+Dim sql_Cmd As Object
+Dim sql_Row As Long
+Dim sql_Findex As Long
+Dim sql_X As Long
+Dim strSQL As String
+
+Dim max_run_id As Long
+
+'Set up sql variables
+Set sql_Conn = CreateObject("ADODB.Connection")
+Set sql_RS = CreateObject("ADODB.Recordset")
+Set sql_Cmd = CreateObject("ADODB.Command")
+
+strSQL = "SELECT MAX(" & max_column & ") FROM " & database & "." & table_name & ""
+
+sql_Conn.Open "Provider=MSDASQL;DSN=PowerUsers_PROD"
+sql_Cmd.ActiveConnection = sql_Conn
+sql_Cmd.CommandType = adCmdText
+sql_Cmd.CommandText = strSQL
+sql_Cmd.CommandTimeout = 0
+
+sql_RS.Open strSQL, sql_Conn
+
+max_run_id = sql_RS.Fields(0).Value
+max_run_id = max_run_id + 1
+
+sql_RS.Close
+sql_Conn.Close
+Set sql_Conn = Nothing
+
+Get_Max_Batch_ID = max_run_id
+
+End Function
